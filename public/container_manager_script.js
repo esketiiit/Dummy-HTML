@@ -11,6 +11,7 @@ document.getElementById('spotify_container').style.backgroundColor = "green";
 // #### Event Listeners for Document #### //
 // Add Event Listeners to the document to handle dragging function.
 document.addEventListener('mouseup', (event) => {
+    dragElement.style.zIndex = "1";
     mouseDown = false;
     dragPos = null;
     dragElement = null;
@@ -18,6 +19,7 @@ document.addEventListener('mouseup', (event) => {
 document.addEventListener('mousemove', (event) => {
     //console.log('PosX: ' + event.clientX + ' PosY: ' + event.clientY);
     if (mouseDown && dragPos !== null && dragElement !== null) {
+        dragElement.style.zIndex = "1";
         var posX = event.clientX - getOffset(mainContainer).left;
         var posY = event.clientY- getOffset(mainContainer).top;
         dragPos = { y: posY, x: posX };
@@ -43,7 +45,6 @@ for (var i = 0; i < elements.length; i++)
 
         event.target.style.zIndex = "1";
     });
-    elements[i].style.display = "none";
 }
 
 // Add Event Listeners to all Drag buttons on containers to set dragPos and dragElement
@@ -57,7 +58,6 @@ for (var i = 0; i < elements.length; i++)
         var relY = event.clientY - getOffset(mainContainer).top;
         dragPos = { y: relY, x: relX };
         dragElement = event.target.parentNode;
-
     });
 }
 
