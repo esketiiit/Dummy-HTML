@@ -1,12 +1,18 @@
 var mainContainer = null;
 
-var mouseDown = false;
+var drag = false;
 var dragPos = null;
 var dragElement = null;
+
+var scale = false;
+var scalePos = null;
+var scaleElement = null;
 
 mainContainer = document.getElementsByClassName('main-container')[0];
 document.getElementById('youtube_container').style.backgroundColor = "blue";
 document.getElementById('spotify_container').style.backgroundColor = "green";
+document.getElementById('youtube_container').style.display = "none";
+document.getElementById('spotify_container').style.display = "none";
 
 // #### Event Listeners for Document #### //
 // Add Event Listeners to the document to handle dragging function.
@@ -19,19 +25,28 @@ document.addEventListener('mouseup', (event) => {
     if (dragElement != null) {
         dragElement.style.zIndex = "1";
     }
-    mouseDown = false;
+    drag = false;
     dragPos = null;
     dragElement = null;
+
+    scale = false;
+    scalePos = null;
+    scaleElement = null;
 });
 document.addEventListener('mousemove', (event) => {
     //console.log('PosX: ' + event.clientX + ' PosY: ' + event.clientY);
-    if (mouseDown && dragPos !== null && dragElement !== null) {
+    if (drag && dragPos !== null && dragElement !== null) {
         dragElement.style.zIndex = "1";
         var posX = event.clientX - getOffset(mainContainer).left;
         var posY = event.clientY- getOffset(mainContainer).top;
         dragPos = { y: posY, x: posX };
         
         moveElementToPos();
+    }
+
+    if (scale && scalePos !== null && scaleElement !== null) {
+        scaleElement.style.zIndex = "1";
+        // Create logic to scale element
     }
 });
 
@@ -59,7 +74,7 @@ elements = document.getElementsByClassName('btn_drag');
 for (var i = 0; i < elements.length; i++)
 {
     elements[i].addEventListener('mousedown', (event) => {
-        mouseDown = true;
+        drag = true;
 
         var relX = event.clientX - getOffset(mainContainer).left;
         var relY = event.clientY - getOffset(mainContainer).top;
@@ -75,6 +90,21 @@ for (var i = 0; i < elements.length; i++)
     elements[i].addEventListener('mousedown', (event) => {
         console.log(event.target.parentNode.id);
         document.getElementById(event.target.parentNode.id).style.display = 'none';
+    });
+}
+
+// Add Event Listeners to all Scale buttons on containers
+elements = document.getElementsByClassName('btn_scale');
+for (var i = 0; i < elements.length; i++)
+{
+    elements[i].addEventListener('mousedown', (event) => {
+        console.log('Scale button clicked...');
+        scale = true;
+
+        var relX = event.clientX - getOffset(mainContainer).left;
+        var relY = event.clientY - getOffset(mainContainer).top;
+        scalePos = { y: relY, x: relX };
+        scaleElement = event.target.parentNode;
     });
 }
 

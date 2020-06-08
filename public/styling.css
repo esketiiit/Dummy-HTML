@@ -67,8 +67,20 @@ body {
     width: 15px;
     height: 15px;
     position: absolute;
-    left: 93px;
+    right: -7px;
     top: -7px;
+    border-radius: 50%;
+}
+
+.btn_scale {
+    background-color: white;
+    background-image: url("./images/scale_arrow.png");
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    right: -7px;
+    bottom: -7px;
     border-radius: 50%;
 }
 
