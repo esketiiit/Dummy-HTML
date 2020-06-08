@@ -5,7 +5,10 @@ var dragPos = null;
 var dragElement = null;
 
 mainContainer = document.getElementsByClassName('main-container')[0];
+document.getElementById('youtube_container').style.backgroundColor = "blue";
+document.getElementById('spotify_container').style.backgroundColor = "green";
 
+// #### Event Listeners for Document #### //
 // Add Event Listeners to the document to handle dragging function.
 document.addEventListener('mouseup', (event) => {
     mouseDown = false;
@@ -21,11 +24,30 @@ document.addEventListener('mousemove', (event) => {
         
         moveElementToPos();
     }
-
 });
 
-// Add Event Listeners to all Drag buttond on containers to set dragPos and dragElement
-var elements = document.getElementsByClassName('btn_drag');
+
+
+
+// #### Event Listeners for Containers and Child Elements #### //
+// Add Event Listerners to all containers to handle which is in front
+var elements = document.getElementsByClassName('container');
+for (var i = 0; i < elements.length; i++)
+{
+    elements[i].addEventListener('mousedown', (event) => {
+        var containers = document.getElementsByClassName('container');
+        for (var i = 0; i < containers.length; i++)
+        {
+            containers[i].style.zIndex = "0";
+        }
+
+        event.target.style.zIndex = "1";
+    });
+    elements[i].style.display = "none";
+}
+
+// Add Event Listeners to all Drag buttons on containers to set dragPos and dragElement
+elements = document.getElementsByClassName('btn_drag');
 for (var i = 0; i < elements.length; i++)
 {
     elements[i].addEventListener('mousedown', (event) => {
@@ -37,7 +59,6 @@ for (var i = 0; i < elements.length; i++)
         dragElement = event.target.parentNode;
 
     });
-
 }
 
 // Add Event Listeners to all Close buttons on containers
@@ -49,6 +70,12 @@ for (var i = 0; i < elements.length; i++)
         document.getElementById(event.target.parentNode.id).style.display = 'none';
     });
 }
+
+
+
+
+
+
 
 // Move dragElement to dragPos when function is called
 function moveElementToPos(){
