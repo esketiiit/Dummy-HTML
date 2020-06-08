@@ -4,22 +4,17 @@ var mouseDown = false;
 var dragPos = null;
 var dragElement = null;
 
-//function init() {
 mainContainer = document.getElementsByClassName('main-container')[0];
 
+// Add Event Listeners to the document to handle dragging function.
 document.addEventListener('mouseup', (event) => {
     mouseDown = false;
     dragPos = null;
     dragElement = null;
 });
-
-document.addEventListener('mousedown', (event) => {
-    if (mouseDown && dragElement != null) {
-    }
-});
 document.addEventListener('mousemove', (event) => {
     //console.log('PosX: ' + event.clientX + ' PosY: ' + event.clientY);
-    if (mouseDown && dragPos != null && dragElement != null) {
+    if (mouseDown && dragPos !== null && dragElement !== null) {
         var posX = event.clientX - getOffset(mainContainer).left;
         var posY = event.clientY- getOffset(mainContainer).top;
         dragPos = { y: posY, x: posX };
@@ -29,7 +24,7 @@ document.addEventListener('mousemove', (event) => {
 
 });
 
-
+// Add Event Listeners to all Drag buttond on containers to set dragPos and dragElement
 var elements = document.getElementsByClassName('btn_drag');
 for (var i = 0; i < elements.length; i++)
 {
@@ -45,14 +40,23 @@ for (var i = 0; i < elements.length; i++)
 
 }
 
-//}
+// Add Event Listeners to all Close buttons on containers
+elements = document.getElementsByClassName('btn_close');
+for (var i = 0; i < elements.length; i++)
+{
+    elements[i].addEventListener('mousedown', (event) => {
+        console.log(event.target.parentNode.id);
+        document.getElementById(event.target.parentNode.id).style.display = 'none';
+    });
+}
 
-
+// Move dragElement to dragPos when function is called
 function moveElementToPos(){
     dragElement.style.left = dragPos.x + 'px';
     dragElement.style.top = dragPos.y + 'px';
 }
 
+// Get offset of element to calculate where to put element when dragging
 function getOffset( el ) {
     var _x = 0;
     var _y = 0;
