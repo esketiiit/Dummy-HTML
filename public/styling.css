@@ -44,3 +44,13 @@ body {
     top: -7px;
     border-radius: 50%;
 }
+
+.btn_close {
+    background-color: white;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    left: 93px;
+    top: -7px;
+    border-radius: 50%;
+}
