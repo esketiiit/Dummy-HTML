@@ -10,8 +10,15 @@ document.getElementById('spotify_container').style.backgroundColor = "green";
 
 // #### Event Listeners for Document #### //
 // Add Event Listeners to the document to handle dragging function.
+document.addEventListener('mousedown', (event) => {
+    if (dragElement != null) {
+        dragElement.style.zIndex = "1";
+    }
+});
 document.addEventListener('mouseup', (event) => {
-    dragElement.style.zIndex = "1";
+    if (dragElement != null) {
+        dragElement.style.zIndex = "1";
+    }
     mouseDown = false;
     dragPos = null;
     dragElement = null;
